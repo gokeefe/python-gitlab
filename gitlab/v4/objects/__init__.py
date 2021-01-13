@@ -1350,6 +1350,44 @@ class GroupProjectManager(ListMixin, RESTManager):
     )
 
 
+class GroupPushRules(SaveMixin, ObjectDeleteMixin, RESTObject):
+    _id_attr = None
+
+
+class GroupPushRulesManager(
+    GetWithoutIdMixin, CreateMixin, UpdateMixin, DeleteMixin, RESTManager
+):
+    _path = "/groups/%(group_id)s/push_rule"
+    _obj_cls = GroupPushRules
+    _from_parent_attrs = {"group_id": "id"}
+    _create_attrs = (
+        tuple(),
+        (
+            "deny_delete_tag",
+            "member_check",
+            "prevent_secrets",
+            "commit_message_regex",
+            "branch_name_regex",
+            "author_email_regex",
+            "file_name_regex",
+            "max_file_size",
+        ),
+    )
+    _update_attrs = (
+        tuple(),
+        (
+            "deny_delete_tag",
+            "member_check",
+            "prevent_secrets",
+            "commit_message_regex",
+            "branch_name_regex",
+            "author_email_regex",
+            "file_name_regex",
+            "max_file_size",
+        ),
+    )
+
+
 class GroupRunner(ObjectDeleteMixin, RESTObject):
     pass
 
@@ -1398,6 +1436,7 @@ class Group(SaveMixin, ObjectDeleteMixin, RESTObject):
         ("milestones", "GroupMilestoneManager"),
         ("notificationsettings", "GroupNotificationSettingsManager"),
         ("packages", "GroupPackageManager"),
+        ("pushrules", "GroupPushRulesManager"),
         ("projects", "GroupProjectManager"),
         ("runners", "GroupRunnerManager"),
         ("subgroups", "GroupSubgroupManager"),
