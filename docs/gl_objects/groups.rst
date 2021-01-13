@@ -283,3 +283,37 @@ You can use the ``ldapgroups`` manager to list available LDAP groups::
 
     # list the groups for a specific LDAP provider
     ldap_groups = gl.ldapgroups.list(search='foo', provider='ldapmain')
+
+Group push rules
+==================
+
+Reference
+---------
+
+* v4 API:
+
+  + :class:`gitlab.v4.objects.GroupPushRules`
+  + :class:`gitlab.v4.objects.GroupPushRulesManager`
+  + :attr:`gitlab.v4.objects.Group.pushrules`
+
+* GitLab API: https://docs.gitlab.com/ee/api/groups.html#push-rules
+
+Examples
+---------
+
+Create group push rules (at least one rule is necessary)::
+
+    group.pushrules.create({'deny_delete_tag': True})
+
+Get group push rules (returns None is there are no push rules)::
+
+    pr = group.pushrules.get()
+
+Edit group push rules::
+
+    pr.branch_name_regex = '^(master|develop|support-\d+|release-\d+\..+|hotfix-.+|feature-.+)$'
+    pr.save()
+
+Delete group push rules::
+
+    pr.delete()
