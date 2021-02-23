@@ -16,6 +16,7 @@ from .milestones import GroupMilestoneManager
 from .notification_settings import GroupNotificationSettingsManager
 from .packages import GroupPackageManager
 from .projects import GroupProjectManager
+from .push_rules import GroupPushRulesManager
 from .runners import GroupRunnerManager
 from .variables import GroupVariableManager
 from .clusters import GroupClusterManager
@@ -53,6 +54,7 @@ class Group(SaveMixin, ObjectDeleteMixin, RESTObject):
         ("variables", "GroupVariableManager"),
         ("clusters", "GroupClusterManager"),
         ("deploytokens", "GroupDeployTokenManager"),
+        ("pushrules", "GroupPushRulesManager"),
     )
 
     @cli.register_custom_action("Group", ("to_project_id",))
